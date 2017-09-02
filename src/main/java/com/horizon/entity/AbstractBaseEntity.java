@@ -32,7 +32,7 @@ public abstract class AbstractBaseEntity implements Serializable
 	public void setVersion(long version) {	this.version = version;}
 	
 	
-	@Column(name="CREATED_ON")
+	@Column(name="CREATED_ON", nullable=false, updatable=false)
 	public LocalDateTime getCreatedOn() {	return createdOn;}
 	public void setCreatedOn(LocalDateTime createdOn) {	this.createdOn = createdOn;}
 	
