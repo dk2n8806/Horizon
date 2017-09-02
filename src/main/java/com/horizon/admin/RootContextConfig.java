@@ -30,7 +30,7 @@ import com.horizon.admin.config.secure.SpringSecurityConfig;
 @EnableAsync(mode=AdviceMode.PROXY, proxyTargetClass=false
 								, order=Ordered.HIGHEST_PRECEDENCE)
 @ComponentScan(
-			basePackages={"com.horizon.entity", "com.horizon.service"}
+			basePackages={"com.horizon.entity", "com.horizon.service", "com.horizon.dao"}
 			, excludeFilters=@ComponentScan.Filter({Controller.class, ControllerAdvice.class})
 )
 @Import({PersistencceConfig.class, SpringSecurityConfig.class})
