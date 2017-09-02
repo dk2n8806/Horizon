@@ -2,17 +2,17 @@ package com.horizon.admin.config.persistence;
 
 import java.util.Properties;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.SharedCacheMode;
 import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -22,7 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.LOWEST_PRECEDENCE)
+@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = { "com.horizon.dao" })
 @PropertySource("classpath:/database.properties")
 public class PersistencceConfig {
@@ -55,6 +55,18 @@ public class PersistencceConfig {
 		properties.put("hibernate.search.autoregister_listeners", false);
 		return properties;
 	}
+	
+	@Bean
+	public EntityManagerFactory entityManagerFactory() {
+		return entityManagerFactoryBean().getObject();
+	}
+	
+	@Bean
+	public EntityManager entityManager() {
+	    return entityManagerFactoryBean().getObject().createEntityManager();
+	}
+	
+	
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
@@ -73,9 +85,12 @@ public class PersistencceConfig {
 		factory.setJpaProperties(getProperties());
 		return factory;
 	}
+	
 
-	@Bean
+	@Bean(name="transactionManager")
 	public PlatformTransactionManager jpaTransactionManager() {
-		return new JpaTransactionManager(this.entityManagerFactoryBean().getObject());
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(this.entityManagerFactory());
+		return transactionManager;
 	}
 }
