@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement(mode = AdviceMode.PROXY, proxyTargetClass = false, order = Ordered.LOWEST_PRECEDENCE)
-@EnableJpaRepositories(basePackages = { "com.core.dao" })
+@EnableJpaRepositories(basePackages = { "com.horizon.dao" })
 @PropertySource("classpath:/database.properties")
 public class PersistencceConfig {
 
