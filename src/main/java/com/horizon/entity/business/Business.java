@@ -21,12 +21,14 @@ public class Business extends AbstractBaseEntity
 	
 	private String name;
 	private BusinessStatus status;
-	private Account Account;
+	private Account account;
+	
 	
 	@ManyToOne
-	@JoinColumn(name="ACCOUNT_ID", nullable=false, updatable=false, unique=true)
-	public Account getAccount() {	return Account;}
-	public void setAccount(Account account) {	Account = account;}
+	@JoinColumn(name="ACCOUNT_ID", nullable=false, unique=true, updatable=false)
+	public Account getAccount() {	return account;}
+	public void setAccount(Account account) {	this.account = account;}
+	
 	
 	@Column(name="NAME", nullable=false)
 	public String getName() {return name;}

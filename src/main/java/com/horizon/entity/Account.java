@@ -3,12 +3,18 @@ package com.horizon.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
+import com.horizon.entity.listener.AbstractBaseEntityListener;
+import com.horizon.entity.listener.AccountListener;
 import com.horizon.entity.status.AccountStatus;
 
 @Entity
-@Table
+@EntityListeners({AbstractBaseEntityListener.class, AccountListener.class})
+@Table(name="ACCOUNT")
 public class Account extends AbstractBaseEntity
 {
 
@@ -18,6 +24,15 @@ public class Account extends AbstractBaseEntity
 	private String email;
 	private byte[] password;
 	private AccountStatus status;
+	
+	public Account() {super();}
+	
+	public Account(String username, String email, byte[] password) {
+		this();
+		this.username = username;
+		this.email = email;
+		this.password = password;
+	}
 	
 	
 	@Column(name="USERNAME", nullable=false)
@@ -34,7 +49,7 @@ public class Account extends AbstractBaseEntity
 	public byte[] getPassword() {	return password;}
 	public void setPassword(byte[] password) {this.password = password;}
 	
-	
+	@Enumerated(EnumType.STRING)
 	@Column(name="STATUS", nullable=false)
 	public AccountStatus getStatus() {	return status;}
 	public void setStatus(AccountStatus status) {this.status = status;}

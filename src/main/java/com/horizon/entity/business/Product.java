@@ -28,15 +28,19 @@ public class Product extends AbstractBaseEntity
 	private ProductStatus status;
 	private Business business;
 	private List<ProductImage> thumbnails;
-	private ProductImage image;
-	private Category category;
 	
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="CATEGORY_ID", nullable=false, updatable=false)
-	public Category getCategory() {	return category;}
-	public void setCategory(Category category) {	this.category = category;}
 	
+	@OneToMany(mappedBy="product", cascade=CascadeType.ALL)
+	public List<ProductImage> getThumbnails() {	return thumbnails;}
+	public void setThumbnails(List<ProductImage> thumbnails) {	this.thumbnails = thumbnails;}
+
+	
+	@ManyToOne
+	@JoinColumn(name="BUSINESS_ID", nullable=false)
+	public Business getBusiness() {	return business;}
+	public void setBusiness(Business business) {	this.business = business;}
+
 	
 	@Column(name="NAME", nullable=false)
 	public String getName() {	return name;}
@@ -56,21 +60,6 @@ public class Product extends AbstractBaseEntity
 	@Column(name="STATUS", nullable=false)
 	public ProductStatus getStatus() {	return status;}
 	public void setStatus(ProductStatus status) {	this.status = status;}
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="BUSINESS_ID", nullable=false, updatable=false)
-	public Business getBusiness() {	return business;}
-	public void setBusiness(Business business) {	this.business = business;}
-	
-
-	@OneToMany(mappedBy="product", cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)
-	public List<ProductImage> getThumbnails() {	return thumbnails;}
-	public void setThumbnails(List<ProductImage> thumbnails) {	this.thumbnails = thumbnails;}
-	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="IMAGE_ID", nullable=false, unique=true)
-	public ProductImage getImage() {	return image;}
-	public void setImage(ProductImage image) {	this.image = image;}
 	
 
 	

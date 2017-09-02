@@ -18,17 +18,19 @@ public class Customer extends AbstractBaseEntity
 {
 
 	private static final long serialVersionUID = 1L;
-	private Account account;
-	private Business business;
-	private CustomerStatus status;
 	
+	private CustomerStatus status;
+	private Business business;
+	private Account account;
+	
+
 	@ManyToOne
-	@JoinColumn(name="ACCOUNT_ID", nullable=false, updatable=false)
+	@JoinColumn(name="ACCOUNT_ID", nullable=false)
 	public Account getAccount() {	return account;}
 	public void setAccount(Account account) {	this.account = account;}
 
 	@ManyToOne
-	@JoinColumn(name="BUSINESS_ID", nullable=false, updatable=false)
+	@JoinColumn(name="BUSINESS_ID", nullable=false)
 	public Business getBusiness() {	return business;}
 	public void setBusiness(Business business) {	this.business = business;}
 	

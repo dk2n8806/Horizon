@@ -17,17 +17,18 @@ public class Category extends AbstractBaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	private String name;					// name of the category
-	private Business business;			// created by business
 	private boolean isActive;				// status of the category
+	private Business business;
+	
+	@ManyToOne
+	@JoinColumn(name="BUSINESS_ID", nullable=false)
+	public Business getBusiness() {	return business;}
+	public void setBusiness(Business business) {	this.business = business;}
 	
 	@Column(name="NAME", nullable=false)
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
 	
-	@ManyToOne
-	@JoinColumn(name="BUSINESS_ID", nullable=false, updatable=false)
-	public Business getBusiness() {	return business;}
-	public void setBusiness(Business business) {this.business = business;}
 	
 	@Type(type="yes_no" )
 	@Column(name="IS_ACTIVE", nullable=false)
