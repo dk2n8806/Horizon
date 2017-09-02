@@ -53,6 +53,7 @@ public class PersistencceConfig {
 		properties.put("hibernate.bytecode.use_reflection_optimizer", false);
 		properties.put("hibernate.check_nullability", false);
 		properties.put("hibernate.search.autoregister_listeners", false);
+		//properties.put("hibernate.hbm2ddl.auto", "create-drop");
 		return properties;
 	}
 	
